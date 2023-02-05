@@ -1,13 +1,15 @@
 import numba
-import numpy
+import numpy as np
 
-def heaviside(z):
+@numba.njit
+def heaviside(z) -> np.float:
     if z >= 0:
         return 1
     else:
         return 0
 
-def heaviside_height_2(z):
+@numba.njit
+def heaviside_height_2(z) -> np.float:
     if z >= 0:
         return 1
     else:
