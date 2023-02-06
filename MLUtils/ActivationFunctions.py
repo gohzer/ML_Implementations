@@ -14,3 +14,10 @@ def heaviside_height_2(z) -> np.float:
         return 1
     else:
         return -1
+
+@numba.njit
+def relu(z):
+    if z >= 0:
+        return z
+    else:
+        return 0

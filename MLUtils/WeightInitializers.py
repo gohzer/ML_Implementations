@@ -1,9 +1,8 @@
 import numpy as np
 
 def random_normal(len):
-    rng = np.random.default_rng()
-    weights = rng.standard_normal(len)
-    return weights
+    w = np.random.normal(loc=0.0, scale=0.01, size=len)
+    return w
 
 def zero(len):
     return np.zeros(len)
