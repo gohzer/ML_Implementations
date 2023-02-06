@@ -8,7 +8,6 @@ from MLUtils.ActivationFunctions import heaviside
 class Perceptron(SupervisedModel):
     def __init__(self, learning_rate: np.float = .2, weight_init=random_normal):
         super().__init__(learning_rate, weight_init)
-        self.weights = None
 
     def fit(self, x, y, epochs=200, tol=0):
         self.weights = self.init(len(x[0])+1)

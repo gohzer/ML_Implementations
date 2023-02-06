@@ -9,9 +9,7 @@ class Adaline(SupervisedModel):
     def __init__(self, learning_rate: np.float,
                  weight_init: callable = random_normal):
 
-        super().__init__(learning_rate)
-        self.weights = None
-        self.bias = 0.0
+        super().__init__(learning_rate, weight_init)
 
     def fit(self, x, y, epochs=100, tol=1e-8):
         pass

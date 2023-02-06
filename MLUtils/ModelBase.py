@@ -2,6 +2,7 @@ import numpy as np
 
 class Model:
     def __init__(self, loss_function, learning_rate, weight_init):
+        self.weights = None
         self.loss_fn = loss_function
         self.lr = learning_rate
         self.init = weight_init
