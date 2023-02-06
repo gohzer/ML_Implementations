@@ -39,7 +39,7 @@ def main():
     final_weights = None
     progress = []
     epochss = []
-    while epochs_since_acc_increase < 100:
+    while epochs_since_acc_increase < 50:
         # optimize model
         model.fit()
 

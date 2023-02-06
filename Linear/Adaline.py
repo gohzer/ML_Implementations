@@ -25,7 +25,7 @@ class Adaline(SupervisedModel):
         return heaviside(np.dot(self.weights, np.hstack([self.one, x])))
 
 
-# @numba.njit
+@numba.njit
 def _adaline_fit(weights, x, y, lr):
     for i in numba.prange(len(weights)):
         z = _adaline_infer_train(weights, x)
