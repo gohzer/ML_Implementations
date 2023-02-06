@@ -1,4 +1,4 @@
-from Linear import Perceptron
+from Linear.Adaline import Adaline
 from MLUtils.LossFunctions import implicit_loss
 import numpy as np
 from sklearn import datasets
@@ -17,11 +17,11 @@ def main():
         n_samples=dataset_size,
         n_redundant=0,
         n_clusters_per_class=1,
-        random_state=7
+        random_state=10
     )
 
-    plt.scatter(x=X[:, 0], y=X[:, 1], c=y)
-    plt.show()
+    # plt.scatter(x=X[:, 0], y=X[:, 1], c=y)
+    # plt.show()
 
     trainx = X[:train_size]
     trainy = y[:train_size]
@@ -30,19 +30,41 @@ def main():
     testy = y[train_size:]
 
     start = timeit.default_timer()
-    model = Perceptron.Perceptron(trainx, trainy, implicit_loss, learning_rate=0.05)
-    model.fit()
+    model = Adaline(trainx, trainy, implicit_loss, learning_rate=3e-5)
 
-    correct = 0
-    for x, y in zip(testx, testy):
-        y_bar = model.infer_single(x)
-        if y == y_bar:
-            correct += 1
+    # train loop
+    last_acc = -np.inf
+    epochs_since_acc_increase = 0
+    epochs = 0
+    final_weights = None
+    progress = []
+    epochss = []
+    while epochs_since_acc_increase < 100:
+        # optimize model
+        model.fit()
 
-    print(f"Acc: {correct/test_size * 100: .2f}%")
+        # compute acc over test set
+        correct = 0
+        for x, y in zip(testx, testy):
+            y_bar = model.infer_single(x)
+            if y == y_bar:
+                correct += 1
+        acc = correct/test_size * 100
+
+        progress.append(acc)
+        epochss.append(epochs)
+        if acc > last_acc:
+            last_acc = acc
+            final_weights = model.weights
+        else:
+            epochs_since_acc_increase += 1
+        epochs += 1
 
     end = timeit.default_timer()
-    print(end-start)
+    print(end-start, last_acc)
+
+    plt.scatter(epochss, progress)
+    plt.show()
 
 if __name__ == '__main__':
     main()
